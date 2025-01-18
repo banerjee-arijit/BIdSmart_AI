@@ -48,7 +48,7 @@ export function UserProfile() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl font-bold">Alex Thompson</h2>
+          <h2 className="text-xl font-bold">John Doe</h2>
           <div className="flex items-center gap-2">
             <Trophy size={14} className="text-yellow-500" />
             <p className="text-gray-400">Premium Bidder</p>

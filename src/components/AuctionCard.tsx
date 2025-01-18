@@ -20,75 +20,82 @@ export function AuctionCard({
   status,
   owner,
 }: AuctionCardProps) {
+  // Use a status map to simplify the logic for badges and buttons
+  const statusMap = {
+    live: {
+      badge: "Live",
+      badgeClass: "bg-green-600 text-white",
+      buttonText: "Place Bid",
+      buttonClass: "bg-blue-600 hover:bg-blue-500",
+      icon: <Zap size={16} />,
+    },
+    upcoming: {
+      badge: "Upcoming",
+      badgeClass: "bg-yellow-600 text-black",
+      buttonText: "Notify Me",
+      buttonClass: "bg-yellow-600 hover:bg-yellow-500",
+      icon: <Bell size={16} />,
+    },
+    ended: {
+      badge: "Ended",
+      badgeClass: "bg-gray-600 text-white",
+      buttonText: "Ended",
+      buttonClass: "bg-gray-600 cursor-not-allowed",
+      icon: null,
+    },
+  };
+
+  const { badge, badgeClass, buttonText, buttonClass, icon } =
+    statusMap[status];
+
   return (
-    <div className="group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer min-w-[300px]">
+    <div className="relative bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer min-w-[280px] mx-2 transition-transform duration-300 transform hover:scale-105">
       {/* Status Badge */}
       <div
-        className={`absolute top-4 left-4 px-3 py-1 text-xs font-bold uppercase rounded-md z-30 ${
-          status === "live"
-            ? "bg-green-600 text-white"
-            : status === "upcoming"
-            ? "bg-yellow-600 text-black"
-            : "bg-gray-600 text-white"
-        }`}
+        className={`absolute top-4 left-4 px-3 py-1 text-xs font-semibold uppercase rounded-md z-20 ${badgeClass}`}
       >
-        {status === "live"
-          ? "Live"
-          : status === "upcoming"
-          ? "Upcoming"
-          : "Ended"}
+        {badge}
       </div>
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10" />
 
       {/* Auction Image */}
       <img
         src={imageUrl}
-        alt={`${title} - ${status}`}
-        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+        alt={title}
+        className="w-full h-48 object-cover transition-transform duration-500 transform hover:scale-110"
       />
 
       {/* Content */}
-      <div className="relative z-20 p-4 text-white">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-blue-400 font-semibold">Current Bid</span>
-            <span className="text-2xl font-bold">
+      <div className="p-4 text-white">
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <div className="space-y-1 text-sm">
+          <div className="flex justify-between">
+            <span className="text-blue-400">Current Bid</span>
+            <span className="text-xl font-bold">
               ${currentBid.toLocaleString()}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center text-gray-300">
             <Timer size={16} />
-            <span>{timeLeft}</span>
+            <span className="ml-1">{timeLeft}</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center text-gray-300">
             <Users size={16} />
-            <span>{bidders} bidders</span>
+            <span className="ml-1">{bidders} bidders</span>
           </div>
-          <div className="flex items-center gap-2 text-gray-300">
+          <div className="flex items-center text-gray-300">
             <span className="font-semibold">Owner:</span>
             <span>{owner}</span>
           </div>
         </div>
 
         {/* Dynamic Button */}
-        {status === "live" ? (
-          <button className="mt-4 w-full bg-blue-600 hover:bg-blue-500 py-2 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors duration-300">
-            <Zap size={16} />
-            Place Bid
-          </button>
-        ) : status === "upcoming" ? (
-          <button className="mt-4 w-full bg-yellow-600 hover:bg-yellow-500 py-2 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors duration-300">
-            <Bell size={16} />
-            Notify Me
-          </button>
-        ) : (
-          <button className="mt-4 w-full bg-gray-600 py-2 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors duration-300 cursor-not-allowed">
-            <span>Ended</span>
-          </button>
-        )}
+        <button
+          className={`mt-4 w-full py-2 rounded-lg flex items-center justify-center gap-2 font-semibold transition-colors duration-300 ${buttonClass}`}
+          disabled={status === "ended"}
+        >
+          {icon && icon}
+          <span>{buttonText}</span>
+        </button>
       </div>
     </div>
   );

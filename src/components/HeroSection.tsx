@@ -9,13 +9,15 @@ import {
 } from "lucide-react";
 
 const backgroundImageUrl =
-  "https://neon.tech/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fbg.2a86581c.jpg&w=2048&q=100&dpl=dpl_3737VeH2XBxVLxQoMXzSVZEQY6Qm";
+  "https://www.transparenttextures.com/patterns/diamond-tile.png"; // A cool futuristic grid pattern.
 
 export function HeroSection() {
   return (
     <div
       className="relative overflow-hidden bg-gradient-to-br text-white"
-      style={{ backgroundImage: `url(${backgroundImageUrl}) ` }}
+      style={{
+        backgroundImage: `url(${backgroundImageUrl}), linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6))`,
+      }}
     >
       <div className="absolute inset-0 bg-grid-black/[0.05] -z-1" />
       <div className="container mx-auto px-4 py-20">
