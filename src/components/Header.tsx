@@ -13,8 +13,11 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+interface HeaderProps {
+  onSignupClick: () => void;
+}
 
-export function Header() {
+export function Header({ onSignupClick }: HeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(true);
 
@@ -41,7 +44,7 @@ export function Header() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8 lg:ml-20">
             <button className="hover:text-red-500 transition-colors font-medium">
               Home
             </button>
@@ -76,7 +79,10 @@ export function Header() {
             </div>
 
             {/* Join Bid Button */}
-            <button className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-6 py-2 rounded-full transition-all duration-300 shadow-lg">
+            <button
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-6 py-2 rounded-full transition-all duration-300 shadow-lg"
+              onClick={onSignupClick}
+            >
               <Zap size={18} />
               <span className="font-semibold">Join the Bid</span>
             </button>
@@ -148,7 +154,10 @@ export function Header() {
               <LogOut size={20} className="text-gray-400" />
               <span>Sign Out</span>
             </button>
-            <button className="flex items-center justify-center gap-2 w-full bg-red-500 hover:bg-red-600 p-3 rounded-lg transition-all duration-300 shadow-lg">
+            <button
+              className="flex items-center justify-center gap-2 w-full bg-red-500 hover:bg-red-600 p-3 rounded-lg transition-all duration-300 shadow-lg"
+              onClick={onSignupClick}
+            >
               <Zap size={18} />
               <span className="font-semibold">Join the Bid</span>
             </button>

@@ -1,16 +1,21 @@
-import React from "react";
 import { AuctionCard } from "./components/AuctionCard";
 import { LiveAuction } from "./components/LiveAuction";
 import { UserProfile } from "./components/UserProfile";
 import { HeroSection } from "./components/HeroSection";
 import { Header } from "./components/Header";
 import { TimelineSection } from "./components/Timeline";
-import Feature from "./components/Feature";
+import { FeaturesSection } from "./components/Feature";
+import { useState } from "react";
+import { SignupPage } from "./components/SignUpPage";
 
 function App() {
+  const [showSignup, setShowSignup] = useState(false);
+  if (showSignup) {
+    return <SignupPage onClose={() => setShowSignup(false)} />;
+  }
   return (
     <div className="min-h-screen bg-cover bg-center text-white">
-      <Header />
+      <Header onSignupClick={() => setShowSignup(true)} />
       <HeroSection />
 
       {/* Main Content */}
@@ -28,7 +33,7 @@ function App() {
         </div>
       </main>
       {/* <TimelineSection /> */}
-      <Feature />
+      <FeaturesSection />
     </div>
   );
 }
